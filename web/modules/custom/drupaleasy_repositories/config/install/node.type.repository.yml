@@ -1,0 +1,18 @@
+uuid: f2055b6c-6b2a-450d-9e11-aee003784070
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Repository
+type: repository
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

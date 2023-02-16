@@ -4,4 +4,4 @@ drupaleasy_repositories.settings:
     _title: 'DrupalEasy repositories settings'
     _form: 'Drupal\drupaleasy_repositories\Form\SettingsForm'
   requirements:
-    _permission: 'drupaleasy repositories configure'
+    _permission: 'configure drupaleasy repositories'

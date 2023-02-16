@@ -1,0 +1,19 @@
+uuid: e239c4bf-d892-4d17-87e7-e8085c7b2650
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_source
+    - node.type.repository
+id: node.repository.field_source
+field_name: field_source
+entity_type: node
+bundle: repository
+label: Source
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,5 +1,0 @@
-name: February 2
-type: module
-description: Temporary module to demonstrate IDE stuff.
-package: DrupalEasy
-core_version_requirement: ^9 || ^10

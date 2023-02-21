@@ -12,6 +12,10 @@ services:
       environment:
         XDEBUG_MODE:
 tooling:
+  composer:
+    service: appserver
+    env:
+      COMPOSER_PROCESS_TIMEOUT: 600
   xdebug-on:
     service: appserver
     description: Enable xdebug for Apache.

@@ -4,9 +4,9 @@ namespace Drupal\Tests\drupaleasy_repositories\Functional;
 
 //use Drupal\field\Entity\FieldConfig;
 //use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\field\Entity\FieldConfig;
-use Drupal\Tests\BrowserTestBase;
+//use Drupal\field\Entity\FieldConfig;
 //use Drupal\Tests\drupaleasy_repositories\Traits\RepositoryContentTypeTrait;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Test description.
@@ -70,11 +70,91 @@ class AddYmlRepoTest extends BrowserTestBase {
   /**
    * Test callback.
    */
-  public function testSomething() {
-    $admin_user = $this->drupalCreateUser(['access administration pages']);
-    $this->drupalLogin($admin_user);
-    $this->drupalGet('admin');
-    $this->assertSession()->elementExists('xpath', '//h1[text() = "Administration"]');
+//  public function testSomething() {
+//    $admin_user = $this->drupalCreateUser(['access administration pages']);
+//    $this->drupalLogin($admin_user);
+//    $this->drupalGet('admin');
+//    $this->assertSession()->elementExists('xpath', '//h1[text() = "Administration"]');
+//  }
+
+  /**
+   * Test that the settings page can be reached and works as expected.
+   *
+   * This tests that an admin user can access the settings page, select a
+   * plugin to enable, and submit the page successfully.
+   *
+   * @test
+   */
+  public function testSettingsPage(): void {
+    // Start the browsing session.
+    $session = $this->assertSession();
+
+    // Navigate to the DrupalEasy Repositories Settings page and confirm we
+    // can reach it.
+    $this->drupalGet('/admin/config/services/repositories');
+    // Try this with a 500 status code to see it fail.
+    $session->statusCodeEquals(200);
+    $session->titleEquals('DrupalEasy repositories settings | Drupal');
+    $session->pageTextContains('DrupalEasy repositories settings');
+
+    // Select the "Remote .yml file" checkbox and submit the form.
+    $edit = [
+      'edit-repositories-yml-remote' => 'yml_remote',
+    ];
+    $this->submitForm($edit, 'Save configuration');
+    $session->statusCodeEquals(200);
+    $session->responseContains('The configuration options have been saved.');
+    $session->checkboxChecked('edit-repositories-yml-remote');
+    $session->checkboxNotChecked('edit-repositories-github');
+
+  }
+
+  /**
+   * Test that a yml repo can be added to profile by a user.
+   *
+   * This tests that a yml-based repo can be added to a user's profile and
+   * that a repository node is successfully created upon saving the profile.
+   *
+   * @test
+   */
+  public function testAddYmlRepo(): void {
+    // Create and login as a Drupal user with permission to access
+    // content.
+    $user = $this->drupalCreateUser(['access content']);
+    $this->drupalLogin($user);
+
+    // Start the browsing session.
+    $session = $this->assertSession();
+
+    // Navigate to their edit profile page and confirm we can reach it.
+    $this->drupalGet('/user/' . $user->id() . '/edit');
+    // Try this with a 500 status code to see it fail.
+    $session->statusCodeEquals(200);
+
+    // Get the full path to the test .yml file.
+    /** @var \Drupal\Core\Extension\ModuleHandler $module_handler */
+    $module_handler = \Drupal::service('module_handler');
+    /** @var \Drupal\Core\Extension\Extension $module */
+    $module = $module_handler->getModule('drupaleasy_repositories');
+    $module_full_path = \Drupal::request()->getUri() . $module->getPath();
+
+    // Add the test .yml file path and submit the form.
+    $edit = [
+      'field_repository_url[0][uri]' => $module_full_path . '/tests/assets/batman-repo.yml',
+    ];
+    $this->submitForm($edit, 'Save');
+    $session->statusCodeEquals(200);
+    $session->responseContains('The changes have been saved.');
+    // We can't check for the following message unless we also have the future
+    // drupaleasy_notify module enabled.
+    // $session->responseContains('The repo named <em class="placeholder">The Batman repository</em> has been created');
+
+    // Find the new repository node.
+    /** @var \Drupal\Core\Entity\Query\QueryInterface $query */
+    $query = \Drupal::entityQuery('node');
+    $query->condition('type', 'repository')->accessCheck(FALSE);
+    $results = $query->execute();
+    $session->assert(count($results) === 1, 'Either 0 or more than 1 repository nodes were found.');
   }
 
 }

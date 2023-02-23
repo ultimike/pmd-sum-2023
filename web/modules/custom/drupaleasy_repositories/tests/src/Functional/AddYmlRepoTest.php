@@ -30,6 +30,7 @@ class AddYmlRepoTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function setUp(): void {
     parent::setUp();
@@ -84,6 +85,8 @@ class AddYmlRepoTest extends BrowserTestBase {
    * plugin to enable, and submit the page successfully.
    *
    * @test
+   *
+   * @throws \Behat\Mink\Exception\ExpectationException
    */
   public function testSettingsPage(): void {
     // Start the browsing session.
@@ -116,6 +119,11 @@ class AddYmlRepoTest extends BrowserTestBase {
    * that a repository node is successfully created upon saving the profile.
    *
    * @test
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Behat\Mink\Exception\ExpectationException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function testAddYmlRepo(): void {
     // Create and login as a Drupal user with permission to access
@@ -155,6 +163,18 @@ class AddYmlRepoTest extends BrowserTestBase {
     $query->condition('type', 'repository')->accessCheck(FALSE);
     $results = $query->execute();
     $session->assert(count($results) === 1, 'Either 0 or more than 1 repository nodes were found.');
+
+    $entity_type_manager = \Drupal::entityTypeManager();
+    $node_storage = $entity_type_manager->getStorage('node');
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $node_storage->load(reset($results));
+
+    // Check values.
+    $session->assert($node->field_machine_name->value == 'batman-repo', 'Machine name does not match.');
+    $session->assert($node->field_source->value == 'yml_remote', 'Source does not match.');
+    $session->assert($node->title->value == 'The Batman repository', 'Label does not match.');
+    $session->assert($node->field_description->value == 'This is where Batman keeps all his crime-fighting code.', 'Description does not match.');
+    $session->assert($node->field_number_of_issues->value == '6', 'Number of issues does not match.');
   }
 
 }

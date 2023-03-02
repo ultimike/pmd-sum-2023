@@ -15,6 +15,7 @@ use Drupal\drupaleasy_repositories\DrupaleasyRepositories\DrupaleasyRepositories
  * )
  */
 class YmlRemote extends DrupaleasyRepositoriesPluginBase {
+
   /**
    * {@inheritdoc}
    */

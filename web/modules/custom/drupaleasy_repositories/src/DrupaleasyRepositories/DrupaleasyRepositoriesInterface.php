@@ -2,10 +2,12 @@
 
 namespace Drupal\drupaleasy_repositories\DrupaleasyRepositories;
 
+use Drupal\Component\Plugin\PluginInspectionInterface;
+
 /**
  * Interface for drupaleasy_repositories plugins.
  */
-interface DrupaleasyRepositoriesInterface {
+interface DrupaleasyRepositoriesInterface extends PluginInspectionInterface {
 
   /**
    * Returns the translated plugin label.

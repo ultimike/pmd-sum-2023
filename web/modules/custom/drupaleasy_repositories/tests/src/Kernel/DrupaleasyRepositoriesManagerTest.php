@@ -36,6 +36,8 @@ class DrupaleasyRepositoriesManagerTest extends KernelTestBase {
    * Test creating an instance of the .yml Remote plugin.
    *
    * @test
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function testYmlRemoteInstance(): void {
     /** @var \Drupal\drupaleasy_repositories\DrupaleasyRepositories\DrupaleasyRepositoriesInterface $example_instance */

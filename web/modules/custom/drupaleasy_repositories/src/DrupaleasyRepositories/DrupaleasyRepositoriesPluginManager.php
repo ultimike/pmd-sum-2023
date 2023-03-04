@@ -14,7 +14,7 @@ class DrupaleasyRepositoriesPluginManager extends DefaultPluginManager {
   /**
    * Constructs DrupaleasyRepositoriesPluginManager object.
    *
-   * @param \Traversable $namespaces
+   * @param \Traversable<mixed> $namespaces
    *   An object that implements \Traversable which contains the root paths
    *   keyed by the corresponding namespace to look for plugin implementations.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend

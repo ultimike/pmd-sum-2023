@@ -40,7 +40,7 @@ class YmlRemoteTest extends UnitTestCase {
   /**
    * Data provider for testValidate().
    *
-   * @return array
+   * @return array<int, array<int, bool|string>>
    *   Array of test strings and results.
    */
   public function validateProvider(): array {

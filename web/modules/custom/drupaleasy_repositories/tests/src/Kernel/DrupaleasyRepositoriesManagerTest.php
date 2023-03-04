@@ -14,6 +14,8 @@ class DrupaleasyRepositoriesManagerTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @var array<int, string>
    */
   protected static $modules = ['drupaleasy_repositories'];
 

@@ -42,7 +42,7 @@ interface DrupaleasyRepositoriesInterface extends PluginInspectionInterface {
    * @param string $uri
    *   The URI of the repo.
    *
-   * @return array
+   * @return array<string, array<string, string>>
    *   The metadata of each repository.
    */
   public function getRepo(string $uri): array;

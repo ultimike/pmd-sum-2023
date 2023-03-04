@@ -19,6 +19,9 @@ class SettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @return array<int, string>
+   *   List of editable configurations.
    */
   protected function getEditableConfigNames(): array {
     return ['drupaleasy_repositories.settings'];
@@ -26,6 +29,12 @@ class SettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @param array<string, mixed> $form
+   *   The form array.
+   *
+   * @return array<int, mixed>
+   *   The form array.
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $repositories_config = $this->config('drupaleasy_repositories.settings');
@@ -54,6 +63,9 @@ class SettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @param array<string, mixed> $form
+   *   The form array.
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->config('drupaleasy_repositories.settings')

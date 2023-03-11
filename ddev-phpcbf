@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Wrapper for custom DDEV phpcbf command.
+# Includes absolute path translation from host to container.
+# Necessary because PHP Sniffer & Beautifier extension needs to call a
+#   batch file. See VSCode's settings.json file. Example setting:
+# "phpsab.executablePathCBF": "/Users/michael/sites/pmd-2023-winter/pmd/ddev-phpcbf",
+# Works with PHP Sniffer & Beautifier extension (valeryanm.vscode-phpsab).
+
+REMOTE_PATH='/var/www/html/'
+LOCAL_PATH="$PWD/"
+
+for param; do
+  if [[ "$param" == *"$LOCAL_PATH"* ]]; then
+    param=${param//$LOCAL_PATH/$REMOTE_PATH}
+  fi
+
+  newparams+=("$param")
+done
+
+ddev . phpcbf ${newparams[@]}

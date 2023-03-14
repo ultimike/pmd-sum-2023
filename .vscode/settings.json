@@ -6,4 +6,16 @@
 
     /* PHP Linting */
     "php.validate.executablePath": "/Users/michael/sites/pmd-2023-winter/pmd/ddev-php",
+
+    // /* PhpStan */
+    // // "phpstan.binPath":
+    // // "/Users/michael/sites/pmd-2023-winter/pmd/ddev-phpstan",
+    // "phpstan.configFile": "/Users/michael/sites/pmd-2023-winter/pmd/phpstan.neon",
+    // "phpstan.binPath": "${workspaceFolder}",
+    // //"phpstan.binPath": "/var/www/html/vendor/bin",
+    // "phpstan.binCommand": [
+    //     "ddev",
+    //     "exec",
+    //     "phpstan"
+    // ],
 }

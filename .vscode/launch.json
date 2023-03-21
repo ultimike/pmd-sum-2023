@@ -2,6 +2,7 @@
   "version": "0.2.0",
   "configurations": [
 
+
     {
       "name": "Listen for XDebug",
       "type": "php",
@@ -9,7 +10,7 @@
       "port": 9003,
       "log": false,
       "pathMappings": {
-        "/var/www/html": "${workspaceFolder}",
+        "/app": "${workspaceFolder}",
       },
       "xdebugSettings": {
         "show_hidden": 1,

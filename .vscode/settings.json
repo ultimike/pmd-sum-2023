@@ -1,11 +1,11 @@
 {
     /* PHP Sniffer & Beautifier */
-    "phpsab.executablePathCS": "/Users/michael/sites/pmd-2023-winter/pmd/ddev-phpcs",
-    "phpsab.executablePathCBF": "/Users/michael/sites/pmd-2023-winter/pmd/ddev-phpcbf",
-    "phpsab.standard": "/Users/michael/sites/pmd-2023-winter/pmd/phpcs.xml",
+    // "phpsab.executablePathCS": "/Users/michael/sites/pmd-2023-winter/pmd/ddev-phpcs",
+    // "phpsab.executablePathCBF": "/Users/michael/sites/pmd-2023-winter/pmd/ddev-phpcbf",
+    // "phpsab.standard": "/Users/michael/sites/pmd-2023-winter/pmd/phpcs.xml",
 
-    /* PHP Linting */
-    "php.validate.executablePath": "/Users/michael/sites/pmd-2023-winter/pmd/ddev-php",
+    // /* PHP Linting */
+    // "php.validate.executablePath": "/Users/michael/sites/pmd-2023-winter/pmd/ddev-php",
 
     // /* PhpStan */
     // // "phpstan.binPath":

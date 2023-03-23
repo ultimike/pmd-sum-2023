@@ -20,7 +20,7 @@ class YmlRemote extends DrupaleasyRepositoriesPluginBase {
    * {@inheritdoc}
    */
   public function validate($uri): bool {
-    $pattern = '|^https?://[a-zA-Z0-9.\-]+/[a-zA-Z0-9_\-.%/]+\.ya?ml$|';
+    $pattern = '|^https?://[a-zA-Z0-9.\-\:]+/[a-zA-Z0-9_\-.%/]+\.ya?ml$|';
 
     if (preg_match($pattern, $uri) === 1) {
       return TRUE;

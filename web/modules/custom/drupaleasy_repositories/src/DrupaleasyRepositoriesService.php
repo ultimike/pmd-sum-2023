@@ -6,11 +6,13 @@ use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Service description.
  */
 class DrupaleasyRepositoriesService {
+  use StringTranslationTrait;
 
   /**
    * The plugin manager interface.
@@ -51,11 +53,14 @@ class DrupaleasyRepositoriesService {
    *   The configuration factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param bool $dry_run
+   *   The dry run parameter that specifies whether or not to save node changes.
    */
-  public function __construct(PluginManagerInterface $plugin_manager_drupaleasy_repositories, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(PluginManagerInterface $plugin_manager_drupaleasy_repositories, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, bool $dry_run) {
     $this->pluginManagerDrupaleasyRepositories = $plugin_manager_drupaleasy_repositories;
     $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
+    $this->dryRun = $dry_run;
   }
 
   /**
@@ -185,13 +190,14 @@ class DrupaleasyRepositoriesService {
       }
     }
 
-    return $this->updateRepositoryNodes($repos_metadata, $account);
+    return $this->updateRepositoryNodes($repos_metadata, $account) &&
+      $this->deleteRepositoryNodes($repos_metadata, $account);
   }
 
   /**
    * Update repository nodes for a given user.
    *
-   * @param array $repos_info
+   * @param array<string, array<string, string>> $repos_info
    *   Repository info from API call.
    * @param \Drupal\Core\Entity\EntityInterface $account
    *   The user account whose repositories to update.
@@ -264,4 +270,55 @@ class DrupaleasyRepositoriesService {
     return TRUE;
   }
 
+  /**
+   * Delete repository nodes deleted from the source for a given user.
+   *
+   * @param array<string, array<string, string>> $repos_info
+   *   Repository info from API call.
+   * @param \Drupal\Core\Entity\EntityInterface $account
+   *   The user account whose repositories to update.
+   *
+   * @return bool
+   *   TRUE if successful.
+   */
+  protected function deleteRepositoryNodes(array $repos_info, EntityInterface $account): bool {
+    // Prepare the storage and query stuff.
+    /** @var \Drupal\Core\Entity\EntityStorageInterface $node_storage */
+    $node_storage = $this->entityTypeManager->getStorage('node');
+
+    /** @var \Drupal\Core\Entity\Query\QueryInterface $query */
+    $query = $node_storage->getQuery();
+    $query->condition('type', 'repository')
+      ->condition('uid', $account->id())
+      ->accessCheck(FALSE);
+    // We can't chain this above because $repos_info might be empty.
+    if ($repos_info) {
+      $query->condition('field_machine_name', array_keys($repos_info), 'NOT IN');
+    }
+    $results = $query->execute();
+    if ($results) {
+      $nodes = $node_storage->loadMultiple($results);
+      /** @var \Drupal\node\Entity\Node $node */
+      foreach ($nodes as $node) {
+        if (!$this->dryRun) {
+          $node->delete();
+          // $this->repoUpdated($node, 'deleted');
+        }
+      }
+    }
+    return TRUE;
+  }
+
 }
+
+/**
+ * Node: Batman
+ * Node: Robin
+ * Node: Wonder Woman
+ * Node: Superman
+ *
+ * $repos_info['batman']
+ *
+ * $repos_info['wonder-woman']
+ *
+ */

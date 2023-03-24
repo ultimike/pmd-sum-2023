@@ -310,15 +310,3 @@ class DrupaleasyRepositoriesService {
   }
 
 }
-
-/**
- * Node: Batman
- * Node: Robin
- * Node: Wonder Woman
- * Node: Superman
- *
- * $repos_info['batman']
- *
- * $repos_info['wonder-woman']
- *
- */

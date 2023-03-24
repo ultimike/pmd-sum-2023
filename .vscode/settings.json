@@ -21,19 +21,19 @@
     // ],
 
     /* DDEV container */
-    // /* PHP Linting */
-    // "php.validate.executablePath": "/usr/bin/php",
+    /* PHP Linting */
+    "php.validate.executablePath": "/usr/bin/php",
 
-    // /* PHP Sniffer & Beautifier */
-    // "phpsab.executablePathCS": "/var/www/html/vendor/bin/phpcs",
-    // "phpsab.executablePathCBF": "/var/www/html/vendor/bin/phpcbf",
-    // "phpsab.standard": "/var/www/html/phpcs.xml",
+    /* PHP Sniffer & Beautifier */
+    "phpsab.executablePathCS": "/var/www/html/vendor/bin/phpcs",
+    "phpsab.executablePathCBF": "/var/www/html/vendor/bin/phpcbf",
+    "phpsab.standard": "/var/www/html/phpcs.xml",
 
-    // /* phpstan */
-    // "phpstan.enabled": true,
-    // "phpstan.showProgress": true,
-    // "phpstan.binPath": "/var/www/html/vendor/bin/phpstan",
-    // "phpstan.configFile": "/var/www/html/phpstan.neon",
+    /* phpstan */
+    "phpstan.enabled": true,
+    "phpstan.showProgress": true,
+    "phpstan.binPath": "/var/www/html/vendor/bin/phpstan",
+    "phpstan.configFile": "/var/www/html/phpstan.neon",
 
     // /* PHPUnit Test Explorer */
     // "phpunit.php": "php",

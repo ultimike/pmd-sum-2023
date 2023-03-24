@@ -1,17 +1,16 @@
 {
   "version": "0.2.0",
   "configurations": [
-
-
     {
       "name": "Listen for XDebug",
       "type": "php",
       "request": "launch",
       "port": 9003,
       "log": false,
-      "pathMappings": {
-        "/app": "${workspaceFolder}",
-      },
+      // "pathMappings": {
+      //   // "/app": "${workspaceFolder}",
+      //   "/var/www/html": "/var/www/html"
+      // },
       "xdebugSettings": {
         "show_hidden": 1,
         // Increase the depth of variable inspection in the Debug Console.

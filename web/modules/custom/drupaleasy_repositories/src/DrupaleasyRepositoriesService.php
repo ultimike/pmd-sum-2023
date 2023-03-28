@@ -125,7 +125,7 @@ class DrupaleasyRepositoriesService {
     // at least one is enabled).
     $atLeastOne = FALSE;
     foreach ($repository_plugin_ids as $repository_plugin_id) {
-      if (!empty($repository_plugin_ids)) {
+      if (!empty($repository_plugin_id)) {
         $atLeastOne = TRUE;
         $repository_plugins[] = $this->pluginManagerDrupaleasyRepositories->createInstance($repository_plugin_id);
       }

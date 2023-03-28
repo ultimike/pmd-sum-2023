@@ -144,7 +144,15 @@ class DrupaleasyRepositoriesService {
           foreach ($repository_plugins as $repository_plugin) {
             if ($repository_plugin->validate($uri)) {
               $validated = TRUE;
-              break;
+              $repo_metadata = $repository_plugin->getRepo($uri);
+              if ($repo_metadata) {
+                if (!$this->isUnique($repo_metadata, $uid)) {
+                  $errors[] = $this->t('The repository at %uri has already been added by another user.', ['%uri' => $uri]);
+                }
+              }
+              else {
+                $errors[] = $this->t('The repository at the url %uri was not found.', ['%uri' => $uri]);
+              }
             }
           }
           if (!$validated) {
@@ -307,6 +315,36 @@ class DrupaleasyRepositoriesService {
       }
     }
     return TRUE;
+  }
+
+  /**
+   * Check to see if a given repository is unique.
+   *
+   * @param array $repo_info
+   *   The repository to check.
+   * @param int $uid
+   *   The UID of the user submitting the repository URL.
+   *
+   * @return bool
+   *   Return true if the given repository is unique.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   */
+  protected function isUnique(array $repo_info, int $uid): bool {
+    /** @var \Drupal\node\NodeStorageInterface $node_storage */
+    $node_storage = $this->entityTypeManager->getStorage('node');
+
+    $repo_metadata = array_pop($repo_info);
+
+    $query = $node_storage->getQuery();
+    $results = $query->condition('type', 'repository')
+      ->condition('field_url', $repo_metadata['url'])
+      ->condition('uid', $uid, '<>')
+      ->accessCheck(FALSE)
+      ->execute();
+
+    return !count($results);
   }
 
 }

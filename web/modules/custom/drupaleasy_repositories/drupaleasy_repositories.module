@@ -63,12 +63,9 @@ function _drupaleasy_repositories_user_form_validate(array $form, FormStateInter
   // For some reason, $form_state->getValue('uid') isn't a thing.
   $username = $form_state->getValue('name');
   $user = user_load_by_name($username);
-  if (is_object($user)) {
-    $error = $repository_service->validateRepositoryUrls($form_state->getValue('field_repository_url'), $user->id());
-  }
-  else {
-    $error = t('User does not exist.');
-  }
+  // If the user doesn't exist, then use the anonymous user ID (0).
+  $uid = is_object($user) ? $user->id() : 0;
+  $error = $repository_service->validateRepositoryUrls($form_state->getValue('field_repository_url'), $uid);
 
   if ($error) {
     $form_state->setErrorByName(

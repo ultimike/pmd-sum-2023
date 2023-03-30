@@ -39,8 +39,20 @@ class YmlRemote extends DrupaleasyRepositoriesPluginBase {
    * {@inheritdoc}
    */
   public function getRepo(string $uri): array {
+    // Temporarily set the PHP error handler to this custom one. If there are
+    // any E_WARNINGs, then TRUE to disable default PHP error handler.
+    set_error_handler(function () {
+      // If FALSE is returned, then the default PHP error handler is run as
+      // well.
+      return TRUE;
+    },
+    E_WARNING
+    );
+
     // file_exists doesn't work with files over http.
     if (file($uri)) {
+      // Restore the default PHP error handler.
+      restore_error_handler();
       if ($file_content = file_get_contents($uri)) {
         $repo_info = Yaml::decode($file_content);
         $machine_name = array_key_first($repo_info);
@@ -48,6 +60,8 @@ class YmlRemote extends DrupaleasyRepositoriesPluginBase {
         return $this->mapToCommonFormat($machine_name, $repo['label'], $repo['description'], $repo['num_open_issues'], $uri);
       }
     }
+    // Restore the default PHP error handler.
+    restore_error_handler();
     return [];
   }
 

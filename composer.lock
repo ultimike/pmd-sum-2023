@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "615165a5bf4a918aa3711907bd49f040",
+    "content-hash": "17f82138511fbf24b2849bf5d25a36be",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1487,6 +1487,19 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Core and its dependencies with known-compatible minor versions. Require this project INSTEAD OF drupal/core."
+        },
+        {
+            "name": "drupaleasy/drupaleasy_repositories",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "./modules/drupaleasy_repositories",
+                "reference": "c985d57ca5a4416c61f5518628a2e8740c592e2f"
+            },
+            "type": "drupal-custom-module",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "drush/drush",

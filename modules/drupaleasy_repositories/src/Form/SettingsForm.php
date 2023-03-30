@@ -74,7 +74,8 @@ class SettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $repositories = $this->repositoriesManager->getDefinitions();
-    $repositories_config = $this->config('drupaleasy_repositories.settings');
+    // Ensure that there is not an issue if config doesn't exist yet.
+    $repositories_config = $this->config('drupaleasy_repositories.settings')->get('repositories') ?? [];
 
     uasort($repositories, function ($a, $b) {
       return Unicode::strcasecmp($a['label'], $b['label']);
@@ -90,7 +91,7 @@ class SettingsForm extends ConfigFormBase {
       '#options' => $repository_options,
 
       '#title' => $this->t('Repositories'),
-      '#default_value' => $repositories_config->get('repositories'),
+      '#default_value' => $repositories_config,
     ];
 
     return parent::buildForm($form, $form_state);

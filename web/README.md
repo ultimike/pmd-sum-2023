@@ -73,5 +73,3 @@ Learn about the [Drupal trademark and logo policy here][trademark].
 [service providers]: https://www.drupal.org/drupal-services
 [support]: https://www.drupal.org/support
 [trademark]: https://www.drupal.com/trademark
-
-git test

@@ -20,6 +20,8 @@ class DrupaleasyRepositoriesServiceTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @var array<int, string> $modules
    */
   protected static $modules = [
     'drupaleasy_repositories',
@@ -94,7 +96,7 @@ class DrupaleasyRepositoriesServiceTest extends KernelTestBase {
   /**
    * Data provider for testIsUnique().
    *
-   * @return array
+   * @return array<int, array<int, bool|array<string, array<string, array<string, mixed>>>>>
    *   Test data and expected results.
    */
   public function providerTestIsUnique(): array {
@@ -106,6 +108,11 @@ class DrupaleasyRepositoriesServiceTest extends KernelTestBase {
 
   /**
    * Test the DrupaleasyRepositoriesService::isUnique method.
+   *
+   * @param bool $expected
+   *   The expected test result.
+   * @param array<string, array<string, mixed>> $repo
+   *   The respository metadata to be tested.
    *
    * @covers \Drupal\drupaleasy_repositories\DrupaleasyRepositoriesService::isUnique
    * @dataProvider providerTestIsUnique
@@ -129,7 +136,7 @@ class DrupaleasyRepositoriesServiceTest extends KernelTestBase {
   /**
    * Data provider for testValidateRepositoryUrls().
    *
-   * @return array
+   * @return array<int, array<int, array<int, array<string, string>>>>
    *   Test data and expected results.
    */
   public function providerValidateRepositoryUrls(): array {
@@ -143,6 +150,11 @@ class DrupaleasyRepositoriesServiceTest extends KernelTestBase {
 
   /**
    * Test the ability for the service to ensure repositories are valid.
+   *
+   * @param string $expected
+   *   The expected result.
+   * @param array<string, array<string, string>> $urls
+   *   The URLs to be tested.
    *
    * @covers \Drupal\drupaleasy_repositories\DrupaleasyRepositoriesService::validateRepositoryUrls
    * @dataProvider providerValidateRepositoryUrls
@@ -173,7 +185,7 @@ class DrupaleasyRepositoriesServiceTest extends KernelTestBase {
   /**
    * Returns sample repository info.
    *
-   * @return array
+   * @return array<string, array<string, mixed>>
    *   The sample repository info.
    */
   protected function getRepo(string $repo_name): array {

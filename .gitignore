@@ -4,6 +4,7 @@
 /web/themes/contrib/
 /web/profiles/contrib/
 /web/libraries/
+/keys
 
 *.sql.gz
 

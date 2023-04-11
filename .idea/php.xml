@@ -163,16 +163,16 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
       <path value="$PROJECT_DIR$/vendor/kint-php/kint" />
       <path value="$PROJECT_DIR$/vendor/knplabs/github-api" />
-      <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
       <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
-      <path value="$PROJECT_DIR$/vendor/php-http/promise" />
-      <path value="$PROJECT_DIR$/vendor/php-http/discovery" />
-      <path value="$PROJECT_DIR$/vendor/php-http/client-common" />
-      <path value="$PROJECT_DIR$/vendor/php-http/multipart-stream-builder" />
       <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
       <path value="$PROJECT_DIR$/vendor/php-http/httplug" />
       <path value="$PROJECT_DIR$/vendor/php-http/cache-plugin" />
       <path value="$PROJECT_DIR$/vendor/php-http/message" />
+      <path value="$PROJECT_DIR$/vendor/php-http/discovery" />
+      <path value="$PROJECT_DIR$/vendor/php-http/client-common" />
+      <path value="$PROJECT_DIR$/vendor/php-http/multipart-stream-builder" />
+      <path value="$PROJECT_DIR$/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
       <path value="$PROJECT_DIR$/vendor/http-interop/http-factory-guzzle" />
     </include_path>
   </component>

@@ -68,22 +68,22 @@ class Github extends DrupaleasyRepositoriesPluginBase {
    */
   protected function setAuthentication(): void {
     $this->client = new Client();
+    $github_key = $this->keyRepository->getKey('github')->getKeyValues();
 
     // The authenticate() method does not actually call the Github API,
     // rather it only stores the authentication info in $client for use when
     // $client makes an API call that requires authentication.
-    $this->client->authenticate('ultimike', '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', AuthMethod::CLIENT_ID);
+    $this->client->authenticate($github_key['username'], $github_key['personal_access_token'], AuthMethod::CLIENT_ID);
 
-//    // Test the credentials with the following code block.
-//    try {
-//      $emails = $this->client->currentUser()->emails()->allPublic();
-//    }
-//    catch (\Throwable $th) {
-//      print_r($th->getMessage());
-//    }
-//
-//    $blah = $emails;
-
+    // // Test the credentials with the following code block.
+    //    try {
+    //      $emails = $this->client->currentUser()->emails()->allPublic();
+    //    }
+    //    catch (\Throwable $th) {
+    //      print_r($th->getMessage());
+    //    }
+    //
+    //    $blah = $emails;
   }
 
 }

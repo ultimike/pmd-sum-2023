@@ -31,6 +31,7 @@ class DrupaleasyRepositoriesServiceTest extends KernelTestBase {
     'text',
     'link',
     'user',
+    'key',
   ];
 
   /**

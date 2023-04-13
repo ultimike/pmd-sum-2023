@@ -111,7 +111,7 @@ function drupaleasy_repositories_user_login(UserInterface $account): void {
  */
 function drupaleasy_repositories_cron(): void {
   // Only update repository nodes once/day.
-  $hour = time() / 3600 % 24;
+  $hour = (int) (time() / 3600) % 24;
   // Assumes cron only runs once/hour.
   // Gets the current GMT hour.
   if ($hour == 1) {

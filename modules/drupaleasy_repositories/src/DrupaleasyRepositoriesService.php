@@ -320,7 +320,7 @@ class DrupaleasyRepositoriesService {
   /**
    * Check to see if a given repository is unique.
    *
-   * @param array $repo_info
+   * @param array<string, array<string, string>> $repo_info
    *   The repository to check.
    * @param int $uid
    *   The UID of the user submitting the repository URL.

@@ -36,7 +36,7 @@ class RepositoryNodeUpdater extends QueueWorkerBase implements ContainerFactoryP
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, mixed $plugin_definition): RepositoryNodeUpdater {
+  public static function create(ContainerInterface $container, array $configuration, mixed $plugin_id, mixed $plugin_definition): RepositoryNodeUpdater {
     return new static(
       $configuration,
       $plugin_id,

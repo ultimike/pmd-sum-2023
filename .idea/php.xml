@@ -14,7 +14,7 @@
   </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
-      <PhpCSConfiguration beautifier_path="$PROJECT_DIR$/../../drupal_coder/vendor/bin/phpcbf" standards="Drupal;DrupalPractice;MySource;PEAR;PSR1;PSR12;PSR2;SlevomatCodingStandard;Squiz;VariableAnalysis;Zend" tool_path="$PROJECT_DIR$/../../drupal_coder/vendor/bin/phpcs" />
+      <PhpCSConfiguration beautifier_path="phpcbf" standards="Drupal;DrupalPractice;MySource;PEAR;PSR1;PSR12;PSR2;SlevomatCodingStandard;Squiz;VariableAnalysis;Zend" tool_path="phpcs" />
       <phpcs_by_interpreter interpreter_id="a3eb0850-41f5-4bac-b272-394de39ef1d1" beautifier_path="/var/www/html/vendor/bin/phpcbf" standards="Drupal;DrupalPractice;MySource;PEAR;PSR1;PSR12;PSR2;SlevomatCodingStandard;Squiz;VariableAnalysis;Zend" tool_path="/var/www/html/vendor/bin/phpcs" timeout="30000" />
     </phpcs_settings>
   </component>
@@ -162,24 +162,23 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
       <path value="$PROJECT_DIR$/vendor/kint-php/kint" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/github-api" />
-      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
-      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
-      <path value="$PROJECT_DIR$/vendor/php-http/httplug" />
-      <path value="$PROJECT_DIR$/vendor/php-http/cache-plugin" />
-      <path value="$PROJECT_DIR$/vendor/php-http/message" />
-      <path value="$PROJECT_DIR$/vendor/php-http/discovery" />
-      <path value="$PROJECT_DIR$/vendor/php-http/client-common" />
-      <path value="$PROJECT_DIR$/vendor/php-http/multipart-stream-builder" />
-      <path value="$PROJECT_DIR$/vendor/php-http/promise" />
-      <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
-      <path value="$PROJECT_DIR$/vendor/http-interop/http-factory-guzzle" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
     <interpreters>
       <interpreter id="a3eb0850-41f5-4bac-b272-394de39ef1d1" name="DDEV" home="docker-compose://DATA" debugger_id="php.debugger.XDebug">
         <remote_data INTERPRETER_PATH="php8.1" HELPERS_PATH="/opt/.phpstorm_helpers" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="web" DOCKER_REMOTE_PROJECT_PATH="/opt/project">
+          <PathMappingSettings>
+            <option name="pathMappings">
+              <list>
+                <mapping local-root="$PROJECT_DIR$/.ddev" remote-root="/mnt/ddev_config" />
+                <mapping local-root="$PROJECT_DIR$/.ddev/xhprof" remote-root="/usr/local/bin/xhprof" />
+                <mapping local-root="$PROJECT_DIR$/web/sites/default/files" remote-root="/var/www/html/web/sites/default/files" />
+                <mapping local-root="$PROJECT_DIR$/.git" remote-root="/var/www/html/.git" />
+                <mapping local-root="$APPLICATION_CONFIG_DIR$/scratches" remote-root="/opt/scratches" />
+              </list>
+            </option>
+          </PathMappingSettings>
           <type_data command="EXEC" />
           <dockerComposeConfigurationPaths>
             <item value="$PROJECT_DIR$/.ddev/.ddev-docker-compose-full.yaml" />

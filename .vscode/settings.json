@@ -22,18 +22,18 @@
 
     /* DDEV container */
     /* PHP Linting */
-    "php.validate.executablePath": "/usr/bin/php",
+    // "php.validate.executablePath": "/usr/bin/php",
 
-    /* PHP Sniffer & Beautifier */
-    "phpsab.executablePathCS": "/var/www/html/vendor/bin/phpcs",
-    "phpsab.executablePathCBF": "/var/www/html/vendor/bin/phpcbf",
-    "phpsab.standard": "/var/www/html/phpcs.xml",
+    // /* PHP Sniffer & Beautifier */
+    // "phpsab.executablePathCS": "/var/www/html/vendor/bin/phpcs",
+    // "phpsab.executablePathCBF": "/var/www/html/vendor/bin/phpcbf",
+    // "phpsab.standard": "/var/www/html/phpcs.xml",
 
-    /* phpstan */
-    "phpstan.enabled": true,
-    "phpstan.showProgress": true,
-    "phpstan.binPath": "/var/www/html/vendor/bin/phpstan",
-    "phpstan.configFile": "/var/www/html/phpstan.neon",
+    // /* phpstan */
+    // "phpstan.enabled": true,
+    // "phpstan.showProgress": true,
+    // "phpstan.binPath": "/var/www/html/vendor/bin/phpstan",
+    // "phpstan.configFile": "/var/www/html/phpstan.neon",
 
     // /* PHPUnit Test Explorer */
     // "phpunit.php": "php",
@@ -47,28 +47,28 @@
     // },
 
     /* Lando container */
-    // /* PHP Linting */
-    // "php.validate.executablePath": "/usr/local/bin/php",
+    /* PHP Linting */
+    "php.validate.executablePath": "/usr/local/bin/php",
 
-    // /* PHP Sniffer & Beautifier */
-    // "phpsab.executablePathCS": "/app/vendor/bin/phpcs",
-    // "phpsab.executablePathCBF": "/app/vendor/bin/phpcbf",
-    // "phpsab.standard": "/app/phpcs.xml",
+    /* PHP Sniffer & Beautifier */
+    "phpsab.executablePathCS": "/app/vendor/bin/phpcs",
+    "phpsab.executablePathCBF": "/app/vendor/bin/phpcbf",
+    "phpsab.standard": "/app/phpcs.xml",
 
-    // /* phpstan */
-    // "phpstan.enabled": true,
-    // "phpstan.showProgress": true,
-    // "phpstan.binPath": "/app/vendor/bin/phpstan",
-    // "phpstan.configFile": "/app/phpstan.neon",
+    /* phpstan */
+    "phpstan.enabled": true,
+    "phpstan.showProgress": true,
+    "phpstan.binPath": "/app/vendor/bin/phpstan",
+    "phpstan.configFile": "/app/phpstan.neon",
 
-    // /* PHPUnit Test Explorer */
-    // "phpunit.php": "php",
-    // "phpunit.phpunit": "/app/vendor/bin/phpunit",
-    // "phpunit.args": [
-    //     "-c",
-    //     "/app/phpunit.xml"
-    // ],
-    // "phpunit.paths": {
-    //     "${workspaceFolder}": "/app",
-    // },
+    /* PHPUnit Test Explorer */
+    "phpunit.php": "php",
+    "phpunit.phpunit": "/app/vendor/bin/phpunit",
+    "phpunit.args": [
+        "-c",
+        "/app/phpunit.xml"
+    ],
+    "phpunit.paths": {
+        "${workspaceFolder}": "/app",
+    },
 }

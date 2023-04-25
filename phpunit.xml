@@ -35,8 +35,8 @@
      you can set the base URL used in the browser test output links to something
      reachable from your host machine here. This will allow you to follow them
      directly and view the output. -->
-     <!-- <env name="BROWSERTEST_OUTPUT_BASE_URL" value="http://pmd.lndo.site"/> -->
-   <env name="BROWSERTEST_OUTPUT_BASE_URL" value="http://pmd.ddev.site"/>
+     <env name="BROWSERTEST_OUTPUT_BASE_URL" value="http://pmd.lndo.site"/>
+   <!-- <env name="BROWSERTEST_OUTPUT_BASE_URL" value="http://pmd.ddev.site"/> -->
 
     <!-- Deprecation testing is managed through Symfony's PHPUnit Bridge.
       The environment variable SYMFONY_DEPRECATIONS_HELPER is used to configure

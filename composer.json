@@ -26,7 +26,8 @@
         "drupal/core-recommended": "^10.0",
         "drupal/key": "^1.17",
         "drupaleasy/drupaleasy_repositories": "^1.0",
-        "drush/drush": "^11.4"
+        "drush/drush": "^11.4",
+        "m4tthumphrey/php-gitlab-api": "^11.9"
     },
     "conflict": {
         "drupal/drupal": "*"

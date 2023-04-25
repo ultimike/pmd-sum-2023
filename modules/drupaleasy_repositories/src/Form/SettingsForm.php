@@ -89,7 +89,6 @@ class SettingsForm extends ConfigFormBase {
     $form['repositories'] = [
       '#type' => 'checkboxes',
       '#options' => $repository_options,
-
       '#title' => $this->t('Repositories'),
       '#default_value' => $repositories_config,
     ];

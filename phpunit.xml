@@ -22,11 +22,15 @@
     <ini name="memory_limit" value="-1"/>
     <!-- Example SIMPLETEST_BASE_URL value: http://localhost -->
        <!-- <env name="SIMPLETEST_BASE_URL" value="http://localhost"/> -->
-    <env name="SIMPLETEST_BASE_URL" value="http://appserver.pmd.internal"/>
+    <env name="SIMPLETEST_BASE_URL" value="http://pmd.lndo.site"/>
 <!--    <env name="SIMPLETEST_BASE_URL" value="http://appserver"/>-->
     <!-- Example SIMPLETEST_DB value: mysql://username:password@localhost/databasename#table_prefix -->
-    <env name="SIMPLETEST_DB" value="sqlite://localhost//dev/shm/test.sqlite"/>
+    <!-- DDEV -->
+    <!-- <env name="SIMPLETEST_DB" value="sqlite://localhost//dev/shm/test.sqlite"/> -->
+    <!-- Lando + VSCode -->
     <!-- <env name="SIMPLETEST_DB" value="mysql://drupal10:drupal10@database/drupal10#phpunit"/> -->
+    <!-- Lando + VSCode Dev containers -->
+    <env name="SIMPLETEST_DB" value="sqlite://localhost/tmp/db.sqlite"/>
     <!-- Example BROWSERTEST_OUTPUT_DIRECTORY value: /var/www/html/web/sites/simpletest/browser_output -->
 <!--    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value="/var/www/html/web/sites/simpletest/browser_output"/>-->
     <!-- By default, browser tests will output links that use the base URL set

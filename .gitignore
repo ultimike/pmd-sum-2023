@@ -10,3 +10,6 @@
 
 # Ignore Mac OS X files
 .DS_Store
+
+# PhpUnit stuff for Lando
+web/tmp

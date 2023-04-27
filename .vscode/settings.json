@@ -55,20 +55,12 @@
     "phpsab.executablePathCBF": "/app/vendor/bin/phpcbf",
     "phpsab.standard": "/app/phpcs.xml",
 
-    /* phpstan */
+    // /* phpstan */
     "phpstan.enabled": true,
     "phpstan.showProgress": true,
     "phpstan.binPath": "/app/vendor/bin/phpstan",
     "phpstan.configFile": "/app/phpstan.neon",
 
-    /* PHPUnit Test Explorer */
-    "phpunit.php": "php",
-    "phpunit.phpunit": "/app/vendor/bin/phpunit",
-    "phpunit.args": [
-        "-c",
-        "/app/phpunit.xml"
-    ],
-    "phpunit.paths": {
-        "${workspaceFolder}": "/app",
-    },
+    // /* PHPUnit Test Explorer */
+    // No non-default configuration necessary for VSCode.
 }

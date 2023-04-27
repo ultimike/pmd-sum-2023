@@ -51,8 +51,11 @@ class DrupaleasyRepositoriesBatch {
 
   /**
    * Updates all user repositories using the Batch API.
+   *
+   * @param bool $drush
+   *   TRUE if running the command from a Drush command.
    */
-  public function updateAllUserRepositories(): void {
+  public function updateAllUserRepositories(bool $drush = FALSE): void {
     $operations = [];
 
     // Get all active users.
@@ -73,6 +76,9 @@ class DrupaleasyRepositoriesBatch {
 
     // Submit the batch for processing.
     batch_set($batch);
+    if ($drush) {
+      drush_backend_batch_process();
+    }
   }
 
   /**
@@ -80,7 +86,7 @@ class DrupaleasyRepositoriesBatch {
    *
    * @param int $uid
    *   User ID to update.
-   * @param array|\ArrayAccess $context
+   * @param array<string, int|string>|\ArrayAccess $context
    *   Context for operations. We do not want to type hint this as an array or
    *   an object as sometimes it is an array (when calling from a form) and
    *   sometimes it is an object (when calling from Drush).

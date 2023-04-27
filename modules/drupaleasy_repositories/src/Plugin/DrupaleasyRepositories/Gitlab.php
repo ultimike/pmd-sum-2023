@@ -26,7 +26,13 @@ class Gitlab extends DrupaleasyRepositoriesPluginBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Gets a single repository from Gitlab.
+   *
+   * @param string $uri
+   *   The URI of the repository to get.
+   *
+   * @return array<string, array<string, string>>
+   *   The repositories.
    */
   public function getRepo(string $uri): array {
     // Parse the URI.
@@ -36,20 +42,43 @@ class Gitlab extends DrupaleasyRepositoriesPluginBase {
     // Set up authentication with the Gitlab API.
     $this->setAuthentication();
 
+    // Option 1: using "search" - but it also returns forks.
+    // try {
+    //   $projects = $this->client->projects()->all(['search' => $parts[2]]);
+    //   if ($projects) {
+    //     $repo = [];
+    //     foreach ($projects as $project) {
+    //       if ($project['web_url'] == $uri) {
+    //         $repo = $project;
+    //       }
+    //     }
+    //     if (!$repo) {
+    //       return [];
+    //     }
+    //   }
+    //   else {
+    //     return [];
+    //   }
+    // }
+    // catch (\Throwable $th) {
+    //   return [];
+    // }.
+    // Option 2: much better than option 1.
+    // See https://github.com/GitLabPHP/Client/blob/11.2/src/Api/Projects.php
     try {
-      $project = $this->client->projects()->show($parts[1] . '/' . $parts[2]);
-      if (empty($project)) {
+      $repo = $this->client->projects()->show($parts[1] . '/' . $parts[2]);
+      if (empty($repo)) {
         return [];
       }
     }
     catch (\Throwable $th) {
-      $this->messenger->addMessage($this->t('Github error: @error', [
+      $this->messenger->addMessage($this->t('Gitlab error: @error', [
         '@error' => $th->getMessage(),
       ]));
       return [];
     }
-
-    return $this->mapToCommonFormat($project['path'], $project['name'], $project['description'], $project['open_issues_count'], $project['web_url']);
+    // $repo['open_issues_count'] requires authentication.
+    return $this->mapToCommonFormat($repo['path'], $repo['name'], $repo['description'], $repo['open_issues_count'], $repo['web_url']);
   }
 
   /**

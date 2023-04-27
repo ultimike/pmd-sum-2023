@@ -47,7 +47,14 @@ class UpdateRepositoriesForm extends FormBase {
   }
 
   /**
-   * Class constructor.
+   * Constructs the form class.
+   *
+   * @param \Drupal\drupaleasy_repositories\DrupaleasyRepositoriesService $repositories_service
+   *   The DrupalEasyRepositories service.
+   * @param \Drupal\drupaleasy_repositories\DrupaleasyRepositoriesBatch $drupaleasy_repositories_batch
+   *   The DrupalEasy repositories batch service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity_type.manager service.
    */
   public function __construct(DrupaleasyRepositoriesService $repositories_service, DrupaleasyRepositoriesBatch $drupaleasy_repositories_batch, EntityTypeManagerInterface $entity_type_manager) {
     $this->repositoriesService = $repositories_service;

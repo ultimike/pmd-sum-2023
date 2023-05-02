@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40ae5ab8538c5566a660a1afde128e8b",
+    "content-hash": "dd68d42e8a91b286830bc1b96273891c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1237,6 +1237,47 @@
             }
         },
         {
+            "name": "drupal/cache_review",
+            "version": "dev-1.0.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/cache_review.git",
+                "reference": "39f17d17be413eb3f0555904a0548249a4e10eb8"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
+                "drupal": {
+                    "version": "1.0.x-dev",
+                    "datestamp": "1658702948",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "osab",
+                    "homepage": "https://www.drupal.org/user/3355876"
+                }
+            ],
+            "description": "Provides tool to review how internal and dynamic cache work",
+            "homepage": "https://www.drupal.org/project/cache_review",
+            "support": {
+                "source": "https://git.drupalcode.org/project/cache_review"
+            }
+        },
+        {
             "name": "drupal/core",
             "version": "10.0.8",
             "source": {
@@ -1648,14 +1689,29 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/drupaleasy_repositories",
-                "reference": "678bc548d1b9adffa3e1c86dc36a1ead9f0085bf"
+                "reference": "49abff7e0154fa44f41d984534afb1fdb2ae7300"
             },
             "require": {
+                "drupal/key": "^1.0",
                 "guzzlehttp/guzzle": "^7.0.1",
                 "http-interop/http-factory-guzzle": "^1.0",
-                "knplabs/github-api": "^3.0"
+                "knplabs/github-api": "^3.0",
+                "php": ">=8.0.0"
+            },
+            "require-dev": {
+                "drush/drush": "^11.1"
+            },
+            "suggest": {
+                "drush/drush": "^11.1"
             },
             "type": "drupal-custom-module",
+            "extra": {
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^11.1"
+                    }
+                }
+            },
             "transport-options": {
                 "relative": true
             }
@@ -11654,7 +11710,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "drupal/cache_review": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],

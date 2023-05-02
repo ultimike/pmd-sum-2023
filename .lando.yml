@@ -5,12 +5,14 @@ config:
 services:
   appserver:
     webroot: web
-    xdebug: debug
+    # xdebug: debug
     config:
       php: php.ini
     overrides:
       environment:
         XDEBUG_MODE:
+  dba:
+    type: phpmyadmin
 tooling:
   composer:
     service: appserver

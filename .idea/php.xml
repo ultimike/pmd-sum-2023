@@ -283,6 +283,7 @@
     </PhpStan_settings>
   </component>
   <component name="PhpStanOptionsConfiguration">
+    <option name="config" value="/var/www/html/phpstan.neon" />
     <option name="level" value="6" />
     <option name="transferred" value="true" />
   </component>

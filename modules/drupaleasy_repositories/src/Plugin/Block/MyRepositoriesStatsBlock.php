@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Cache\Cache;
 
 /**
- * Provides a my repositories stats block.
+ * Provides a "my repositories stats" block.
  *
  * @Block(
  *   id = "drupaleasy_repositories_my_repositories_stats",
@@ -45,7 +45,7 @@ class MyRepositoriesStatsBlock extends BlockBase implements ContainerFactoryPlug
   /**
    * Constructs a new MyRepositoriesStatsBlock instance.
    *
-   * @param array $configuration
+   * @param array<int, mixed> $configuration
    *   The plugin configuration, i.e. an array with configuration values keyed
    *   by configuration option name. The special key 'context' may be used to
    *   initialize the defined contexts by setting it to an array of context
@@ -71,7 +71,7 @@ class MyRepositoriesStatsBlock extends BlockBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): MyRepositoriesStatsBlock {
     return new static(
       $configuration,
       $plugin_id,
@@ -100,6 +100,7 @@ class MyRepositoriesStatsBlock extends BlockBase implements ContainerFactoryPlug
     $build['#cache'] = [
       'max-age' => Cache::PERMANENT,
       'tags' => ['node_list:repository', 'drupaleasy_repositories'],
+      'contexts' => ['user.roles'],
     ];
     return $build;
   }

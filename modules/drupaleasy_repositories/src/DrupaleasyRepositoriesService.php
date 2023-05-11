@@ -2,8 +2,10 @@
 
 namespace Drupal\drupaleasy_repositories;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -55,6 +57,20 @@ class DrupaleasyRepositoriesService {
   protected ContainerAwareEventDispatcher $eventDispatcher;
 
   /**
+   * Drupal core cache backend.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected CacheBackendInterface $cache;
+
+  /**
+   * Drupal core datetime service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected TimeInterface $time;
+
+  /**
    * Constructs a DrupaleasyRepositories object.
    *
    * @param \Drupal\Component\Plugin\PluginManagerInterface $plugin_manager_drupaleasy_repositories
@@ -67,13 +83,19 @@ class DrupaleasyRepositoriesService {
    *   The dry run parameter that specifies whether or not to save node changes.
    * @param \Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher $event_dispatcher
    *   The event dispatcher service.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache
+   *   The Cache backend interface.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The Drupal core datetime service.
    */
-  public function __construct(PluginManagerInterface $plugin_manager_drupaleasy_repositories, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, bool $dry_run, ContainerAwareEventDispatcher $event_dispatcher) {
+  public function __construct(PluginManagerInterface $plugin_manager_drupaleasy_repositories, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, bool $dry_run, ContainerAwareEventDispatcher $event_dispatcher, CacheBackendInterface $cache, TimeInterface $time) {
     $this->pluginManagerDrupaleasyRepositories = $plugin_manager_drupaleasy_repositories;
     $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
     $this->dryRun = $dry_run;
     $this->eventDispatcher = $event_dispatcher;
+    $this->cache = $cache;
+    $this->time = $time;
   }
 
   /**
@@ -192,22 +214,34 @@ class DrupaleasyRepositoriesService {
    */
   public function updateRepositories(EntityInterface $account): bool {
     $repos_metadata = [];
-    $repository_plugin_ids = $this->configFactory->get('drupaleasy_repositories.settings')->get('repositories') ?? [];
 
-    foreach ($repository_plugin_ids as $repository_plugin_id) {
-      if (!empty($repository_plugin_id)) {
-        /** @var \Drupal\drupaleasy_repositories\DrupaleasyRepositories\DrupaleasyRepositoriesInterface $repository_location */
-        $repository_location = $this->pluginManagerDrupaleasyRepositories->createInstance($repository_plugin_id);
-        // Loop through repository URLs.
-        foreach ($account->field_repository_url ?? [] as $url) {
-          // Check if the URL validates for this repository.
-          if ($repository_location->validate($url->uri)) {
-            // Confirm the repository exists and get metadata.
-            if ($repo_metadata = $repository_location->getRepo($url->uri)) {
-              $repos_metadata += $repo_metadata;
+    $cid = 'drupaleasy_repositories:repositories:' . $account->id();
+    $cache = $this->cache->get($cid);
+    if ($cache) {
+      $repos_metadata = $cache->data;
+    }
+    else {
+      $repository_plugin_ids = $this->configFactory->get('drupaleasy_repositories.settings')->get('repositories') ?? [];
+      foreach ($repository_plugin_ids as $repository_plugin_id) {
+        if (!empty($repository_plugin_id)) {
+          /** @var \Drupal\drupaleasy_repositories\DrupaleasyRepositories\DrupaleasyRepositoriesInterface $repository_location */
+          $repository_location = $this->pluginManagerDrupaleasyRepositories->createInstance($repository_plugin_id);
+          // Loop through repository URLs.
+          foreach ($account->field_repository_url ?? [] as $url) {
+            // Check if the URL validates for this repository.
+            if ($repository_location->validate($url->uri)) {
+              // Confirm the repository exists and get metadata.
+              if ($repo_metadata = $repository_location->getRepo($url->uri)) {
+                $repos_metadata += $repo_metadata;
+              }
             }
           }
         }
+      }
+
+      // Set cache.
+      if (count($repos_metadata)) {
+        $this->cache->set($cid, $repos_metadata, $this->time->getRequestTime() + 60);
       }
     }
 

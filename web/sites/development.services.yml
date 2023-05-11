@@ -10,7 +10,7 @@ parameters:
       max-age: 0
       contexts: ['session', 'user']
       tags: []
-    debug: true
+    debug: false
   twig.config:
     debug: true
     auto_reload: true

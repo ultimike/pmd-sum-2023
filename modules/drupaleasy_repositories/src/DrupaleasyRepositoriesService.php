@@ -216,6 +216,9 @@ class DrupaleasyRepositoriesService {
     $repos_metadata = [];
 
     $cid = 'drupaleasy_repositories:repositories:' . $account->id();
+    // The $cache object is just a standard default PHP object with properties
+    // for each of the fields in its "cache_<binname>" table. No typehint is
+    // available for IDE autocomplete.
     $cache = $this->cache->get($cid);
     if ($cache) {
       $repos_metadata = $cache->data;

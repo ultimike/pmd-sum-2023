@@ -12,6 +12,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\drupaleasy_repositories\Event\RepoUpdatedEvent;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Service description.
@@ -208,11 +209,13 @@ class DrupaleasyRepositoriesService {
    *
    * @param \Drupal\Core\Entity\EntityInterface $account
    *   The user account whose repositories to update.
+   * @param bool $bypass_cache
+   *   Boolean to bypass the cache in certain circumstances.
    *
    * @return bool
    *   TRUE if successful.
    */
-  public function updateRepositories(EntityInterface $account): bool {
+  public function updateRepositories(EntityInterface $account, bool $bypass_cache = FALSE): bool {
     $repos_metadata = [];
 
     $cid = 'drupaleasy_repositories:repositories:' . $account->id();
@@ -220,7 +223,7 @@ class DrupaleasyRepositoriesService {
     // for each of the fields in its "cache_<binname>" table. No typehint is
     // available for IDE autocomplete.
     $cache = $this->cache->get($cid);
-    if ($cache) {
+    if ($cache && !$bypass_cache) {
       $repos_metadata = $cache->data;
     }
     else {
@@ -243,9 +246,8 @@ class DrupaleasyRepositoriesService {
       }
 
       // Set cache.
-      if (count($repos_metadata)) {
-        $this->cache->set($cid, $repos_metadata, $this->time->getRequestTime() + 60);
-      }
+      $this->cache->set($cid, $repos_metadata, Cache::PERMANENT, ['drupaleasy_repositories', 'user:' . $account->id()]);
+      //$this->cache->set($cid, $repos_metadata, $this->time->getRequestTime() + 60);
     }
 
     return $this->updateRepositoryNodes($repos_metadata, $account) &&
